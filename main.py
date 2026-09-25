@@ -1,6 +1,6 @@
 from sucursal import Sucursal
 from reserva import Reserva
-
+reservas=[]
 
 sucursal = Sucursal(35,"Cutral Có","Avenida del trabajo 456")
 
@@ -9,7 +9,8 @@ while True:
     print("ALQUILER DE VEHICULOS")
     print("1. Crear reserva")
     print("2. Mostrar vehiculos")
-    print("3. Salir")
+    print("3. Reservas Realizadas")
+    print("4. Salir")
     
     opcion = input("Seleccione una opcion: ")
 
@@ -27,6 +28,7 @@ while True:
             dias = int(input("Cantidad de dias: "))
             vehiculo = sucursal.vehiculos[eleccion]
             reserva = Reserva(id_reserva,cliente,vehiculo,dias)
+            reservas.append(reserva)
             print("_"*20)
             print("RESERVA CREADA")
             print("ID:", reserva.id_reserva)
@@ -45,12 +47,21 @@ while True:
         for vehiculo in sucursal.vehiculos:
             print(numero,"-",vehiculo.marca,vehiculo.modelo,"- Patente:",vehiculo.patente)
             numero = numero + 1
-
     elif opcion == "3":
-        
+        print("RESERVAS REALIZADAS")
+        if len(reservas) == 0:
+            print("No hay reservas realizadas.")
+        else:
+            for reserva in reservas:
+                print("_"*20)
+                print("ID:", reserva.id_reserva)
+                print("Cliente:", reserva.cliente)
+                print("Vehiculo:", reserva.vehiculo.marca,reserva.vehiculo.modelo)
+                print("Dias:", reserva.dias)
+                print("Total: $", reserva.calcular_total())
+                print("_"*20)
+    elif opcion == "4":        
         print("Finalizado.")
         break
-
     else:
-
         print("Opcion incorrecta.")
