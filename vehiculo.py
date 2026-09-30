@@ -1,4 +1,4 @@
-from estadoVehiculo import EstadoVehiculo
+
 
 class Vehiculo:
 
@@ -6,13 +6,21 @@ class Vehiculo:
         self.patente = patente
         self.marca = marca
         self.modelo = modelo
-        self.__tarifa_dia = tarifa_dia
-
-    def get_tarifa_dia(self):
+        self.__tarifa_dia = tarifa_dia    
+  
+    @property
+    def tarifa_dia(self):
         return self.__tarifa_dia
+   
+    @tarifa_dia.setter
+    def tarifa_dia(self, tarifa_dia):
+        if tarifa_dia <= 0:
+            raise ValueError("La tarifa diaria debe ser mayor a 0")
 
-    def set_tarifa_dia(self, tarifa_dia):
         self.__tarifa_dia = tarifa_dia
 
     def calcular_costo(self, dias):
-        return self.__tarifa_dia * dias
+        if dias < 0:
+            return False
+
+        return dias * self.tarifa_dia
